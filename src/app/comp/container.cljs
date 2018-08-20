@@ -38,12 +38,11 @@
      {:style (merge
               ui/column
               {:overflow :auto,
-               :padding "16px 0px 200px 0px",
                :border-right (str "1px solid " (hsl 0 0 80)),
                :width 320,
                :white-space :nowrap})}
      (div
-      {:style {:padding "0 16px"}}
+      {:style {:padding 16, :border-bottom (str "1px solid " (hsl 0 0 90))}}
       (input
        {:class-name "search-box",
         :style (merge ui/input {:width "100%", :font-family ui/font-code}),
@@ -55,9 +54,8 @@
             "ArrowDown" (d! :move-down (count visible-files))
             "ArrowUp" (d! :move-up (count visible-files))
             :else))}))
-     (=< nil 16)
      (list->
-      {:style (merge ui/flex)}
+      {:style (merge ui/flex {:overflow :auto, :padding-bottom 120, :padding-top 16})}
       (->> visible-files
            (map-indexed
             (fn [idx file-path]
