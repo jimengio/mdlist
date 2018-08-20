@@ -21,50 +21,60 @@
  (let [store (:store reel)
        states (:states store)
        selected (:selected store)
-       query (:filter store)]
+       query (:filter store)
+       visible-files (->> (keys files-map)
+                          (filter
+                           (fn [file-path]
+                             (->> (string/split query " ")
+                                  (some
+                                   (fn [piece]
+                                     (or (string/blank? piece)
+                                         (and (not (string/blank? piece))
+                                              (string/includes? file-path piece))))))))
+                          (sort))]
    (div
     {:style (merge ui/global ui/row ui/fullscreen)}
     (div
      {:style (merge
               ui/column
               {:overflow :auto,
-               :padding "16px 0px 200px 0px",
                :border-right (str "1px solid " (hsl 0 0 80)),
                :width 320,
                :white-space :nowrap})}
      (div
-      {:style {:padding "0 16px"}}
+      {:style {:padding 16, :border-bottom (str "1px solid " (hsl 0 0 90))}}
       (input
-       {:style (merge ui/input {:width "100%"}),
+       {:class-name "search-box",
+        :style (merge ui/input {:width "100%", :font-family ui/font-code}),
         :placeholder "Filter...",
         :value query,
-        :on-input (fn [e d! m!] (d! :filter (:value e)))}))
-     (=< nil 16)
+        :on-input (fn [e d! m!] (d! :filter (:value e)) (d! :select 0)),
+        :on-keydown (fn [e d! m!]
+          (case (:code e)
+            "ArrowDown"
+              (do (d! :move-down (count visible-files)) (.preventDefault (:event e)))
+            "ArrowUp" (do (d! :move-up (count visible-files)) (.preventDefault (:event e)))
+            :else))}))
      (list->
-      {:style (merge ui/flex)}
-      (->> (keys files-map)
-           (filter
-            (fn [file-path]
-              (->> (string/split query " ")
-                   (some
-                    (fn [piece]
-                      (or (string/blank? piece)
-                          (and (not (string/blank? piece))
-                               (string/includes? file-path piece))))))))
-           (sort)
-           (map
-            (fn [file-path]
+      {:style (merge ui/flex {:overflow :auto, :padding-bottom 120, :padding-top 16})}
+      (->> visible-files
+           (map-indexed
+            (fn [idx file-path]
               [file-path
                (div
                 {:style (merge
-                         {:padding "0 16px", :line-height "32px", :cursor :pointer}
-                         (when (= file-path selected) {:background-color (hsl 0 0 90)})),
-                 :on-click (fn [e d! m!] (d! :select file-path))}
+                         {:padding "0 16px",
+                          :line-height "32px",
+                          :cursor :pointer,
+                          :width "100%",
+                          :overflow :auto}
+                         (when (= idx selected) {:background-color (hsl 0 0 90)})),
+                 :on-click (fn [e d! m!] (d! :select idx))}
                 (<> (-> file-path (string/replace "/" " ") (string/replace ".md" ""))))])))))
     (if (nil? selected)
       (div {:style (merge ui/flex ui/center)} (<> "No selection"))
       (div
        {:style (merge ui/flex {:overflow :auto, :padding "32px 32px 200px 32px"})}
-       (comp-md-block (get files-map selected) {})))
+       (comp-md-block (get files-map (get (vec visible-files) selected)) {})))
     (when dev? (comp-inspect "Co" store {:bottom 0}))
     (when dev? (cursor-> :reel comp-reel states reel {})))))

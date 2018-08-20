@@ -1,7 +1,6 @@
 
 body {
   margin: 0;
-  font-display: optional;
   overscroll-behavior-y: none;
 }
 
@@ -20,7 +19,7 @@ body * {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: hsla(200,100%,76%,0.8);
+  background-color: hsla(200,60%,76%,0.8);
 }
 
 ::-webkit-scrollbar-corner {
@@ -40,13 +39,20 @@ line-height: 1.6em;
 .md-p code {
 background-color: #eee;
 padding: 0 8px;
+font-family: "Source Code Pro", "Menlo", monospace;
 }
 
 .md-code-block {
-background-color: #f6f6f6;
-padding: 8px;
-line-height: 1.6em;
-font-size: 12px;
+  background-color: #f6f6f6;
+  padding: 8px;
+  font-family:
+  "Source Code Pro", "Menlo", monospace;
+  line-height: 24px;
+  font-size: 13px;
+}
+
+.md-code-block code {
+ font-family: "Source Code Pro", "Menlo", monospace;
 }
 
 .md-block img {
