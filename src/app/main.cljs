@@ -19,6 +19,15 @@
 
 (def mount-target (.querySelector js/document ".app"))
 
+(defn on-window-keydown [event]
+  (case (.-code event)
+    "Slash"
+      (when (not= "search-box" (.-className (.-activeElement js/document)))
+        (let [target (.querySelector js/document ".search-box")]
+          (.select target)
+          (.preventDefault event)))
+    :else))
+
 (defn persist-storage! []
   (.setItem js/localStorage (:storage config/site) (pr-str (:store @*reel))))
 
@@ -33,9 +42,10 @@
   (add-watch *reel :changes (fn [] (render-app! render!)))
   (listen-devtools! "a" dispatch!)
   (.addEventListener js/window "beforeunload" persist-storage!)
+  (.addEventListener js/window "keydown" #(on-window-keydown %))
   (js/setInterval persist-storage! (* 1000 60))
   (let [raw (.getItem js/localStorage (:storage config/site))]
-    (when (some? raw) (dispatch! :hydrate-storage (read-string raw))))
+    (when (some? raw) (dispatch! :hydrate-storage (assoc (read-string raw) :filter ""))))
   (println "App started."))
 
 (defn reload! []

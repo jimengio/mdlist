@@ -1,4 +1,4 @@
 
 (ns app.schema )
 
-(def store {:states {}, :selected nil})
+(def store {:states {}, :filter "", :selected nil})
