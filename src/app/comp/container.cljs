@@ -51,8 +51,9 @@
         :on-input (fn [e d! m!] (d! :filter (:value e)) (d! :select 0)),
         :on-keydown (fn [e d! m!]
           (case (:code e)
-            "ArrowDown" (d! :move-down (count visible-files))
-            "ArrowUp" (d! :move-up (count visible-files))
+            "ArrowDown"
+              (do (d! :move-down (count visible-files)) (.preventDefault (:event e)))
+            "ArrowUp" (do (d! :move-up (count visible-files)) (.preventDefault (:event e)))
             :else))}))
      (list->
       {:style (merge ui/flex {:overflow :auto, :padding-bottom 120, :padding-top 16})}
