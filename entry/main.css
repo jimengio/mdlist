@@ -19,7 +19,7 @@ body * {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: hsla(200,60%,76%,0.8);
+  background-color: hsla(200,20%,90%,0.8);
 }
 
 ::-webkit-scrollbar-corner {
@@ -31,24 +31,29 @@ body * {
 }
 
 
-.md-p {
-margin: 16px 0;
-line-height: 1.6em;
-}
+.md-p {margin: 16px 0;line-height: 24px;font-size: 14px;}
 
 .md-p code {
-background-color: #eee;
-padding: 0 8px;
-font-family: "Source Code Pro", "Menlo", monospace;
+    background-color: white;
+    padding: 0 8px;
+    font-family: "Source Code Pro", "Menlo", monospace;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px;
 }
 
 .md-code-block {
-  background-color: #f6f6f6;
-  padding: 8px;
+  background-color: #ffffff;
+  padding: 16px;
   font-family:
   "Source Code Pro", "Menlo", monospace;
-  line-height: 24px;
+  line-height: 21px;
   font-size: 13px;
+  overflow: auto;
+  border: 1px solid #ececec;
+  border-radius: 4px;
 }
 
 .md-code-block code {

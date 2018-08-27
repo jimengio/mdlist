@@ -1,6 +1,6 @@
 
 {:source-paths ["resource" "src" "cli"]
- :repositories {"central" {:url "http://maven.aliyun.com/nexus/content/groups/public/"}
+ :repositories {"central" {:url "https://maven.aliyun.com/nexus/content/groups/public/"}
                 "clojars" {:url "https://mirrors.ustc.edu.cn/clojars/"}}
  :dependencies [[mvc-works/hsl          "0.1.2"]
                 [mvc-works/verbosely    "0.1.2"]
