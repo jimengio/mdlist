@@ -7,8 +7,8 @@
     "watch": "shadow-cljs watch client cli",
     "serve": "http-server dist -s",
     "repl": "rlwrap shadow-cljs clj-repl",
-    "build": "shadow-cljs clj-run build.main/build",
-    "build-local": "shadow-cljs clj-run build.main/build-local",
+    "build-remote": "shadow-cljs clj-run build.main/build",
+    "build": "shadow-cljs clj-run build.main/build-local",
     "page": "shadow-cljs clj-run build.main/page",
     "upload": "lumo -c cli/:src/ -m build.upload",
     "ln": "cd target && rm -f entry && ln -s ../entry"
@@ -21,7 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "http-server": "^0.11.1",
-    "shadow-cljs": "^2.6.1"
+    "shadow-cljs": "^2.6.3"
   },
   "dependencies": {
     "shortid": "^2.2.13"

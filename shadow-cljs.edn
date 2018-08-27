@@ -32,4 +32,6 @@
           :cli {:target :node-script
                 :output-to "target/cli.js"
                 :main app.cli/main!
-                :devtools {:after-load app.cli/reload!}}}}
+                :devtools {:after-load app.cli/reload!}
+                :release {:output-to "dist/cli.js"
+                          :compiler-options {:optimizations :simple}}}}}

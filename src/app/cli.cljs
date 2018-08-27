@@ -9,7 +9,6 @@
 (def jimu-folder "/Users/chen/work/jimu/src/pkg.jimu.io")
 
 (defn grab-files! []
-  (.write js/process.stdout (read-string "\"\\033c\""))
   (let [data (as->
               (.toString (cp/execSync (str "find " jimu-folder " | grep .md$")))
               xx
@@ -30,4 +29,4 @@
 
 (defn main! [] (println "started") (grab-files!))
 
-(defn reload! [] (grab-files!))
+(defn reload! [] (.write js/process.stdout (read-string "\"\\033c\"")) (grab-files!))
