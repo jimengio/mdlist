@@ -38,7 +38,7 @@
      {:style (merge
               ui/column
               {:overflow :auto,
-               :border-right (str "1px solid " (hsl 0 0 80)),
+               :border-right (str "1px solid " (hsl 0 0 94)),
                :width 320,
                :white-space :nowrap})}
      (div
