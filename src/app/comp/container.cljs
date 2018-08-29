@@ -13,7 +13,8 @@
             [app.config :refer [dev?]]
             [app.files :refer [files-map]]
             [respo-md.comp.md :refer [comp-md-block]]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            ["dayjs" :as dayjs]))
 
 (defcomp
  comp-container
@@ -73,8 +74,12 @@
                 (<> (-> file-path (string/replace "/" " ") (string/replace ".md" ""))))])))))
     (if (nil? selected)
       (div {:style (merge ui/flex ui/center)} (<> "No selection"))
-      (div
-       {:style (merge ui/flex {:overflow :auto, :padding "32px 32px 200px 32px"})}
-       (comp-md-block (get files-map (get (vec visible-files) selected)) {})))
+      (let [file (get files-map (get (vec visible-files) selected))]
+        (div
+         {:style (merge ui/flex {:overflow :auto, :padding "32px 32px 200px 32px"})}
+         (div
+          {:style {:font-family ui/font-fancy, :font-size 16, :color (hsl 0 0 80)}}
+          (<> (str "Last modified at " (.format (dayjs (:time file)) "YYYY-MM-DD hh:mm"))))
+         (comp-md-block (:content file) {}))))
     (when dev? (comp-inspect "Co" store {:bottom 0}))
     (when dev? (cursor-> :reel comp-reel states reel {})))))
