@@ -4,7 +4,8 @@
             ["path" :as path]
             ["child_process" :as cp]
             [clojure.string :as string]
-            [cljs.reader :refer [read-string]]))
+            [cljs.reader :refer [read-string]]
+            [clojure.string :as string]))
 
 (def jimu-folder "/Users/chen/work/jimu/src/pkg.jimu.io")
 
@@ -20,7 +21,13 @@
                       (not (string/includes? x "node_modules"))))
                xx)
               (map
-               (fn [x] [(string/replace x jimu-folder "") (fs/readFileSync x "utf8")])
+               (fn [x]
+                 [(string/replace x jimu-folder "")
+                  {:content (fs/readFileSync x "utf8"),
+                   :time (string/trim
+                          (.toString
+                           (cp/execSync
+                            (str "cd " jimu-folder "&& git log -1 --format=\"%aI\" -- " x))))}])
                xx)
               (into {} xx))]
     (fs/writeFileSync
