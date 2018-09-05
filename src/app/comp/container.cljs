@@ -14,7 +14,8 @@
             [app.files :refer [files-map]]
             [respo-md.comp.md :refer [comp-md-block]]
             [clojure.string :as string]
-            ["dayjs" :as dayjs]))
+            ["dayjs" :as dayjs]
+            ["fuzzy" :as fuzzy]))
 
 (defcomp
  comp-container
@@ -31,7 +32,7 @@
                                    (fn [piece]
                                      (or (string/blank? piece)
                                          (and (not (string/blank? piece))
-                                              (string/includes? file-path piece))))))))
+                                              (fuzzy/test piece file-path))))))))
                           (sort))]
    (div
     {:style (merge ui/global ui/row ui/fullscreen)}
