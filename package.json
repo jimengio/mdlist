@@ -8,6 +8,7 @@
     "serve": "http-server dist -s",
     "repl": "rlwrap shadow-cljs clj-repl",
     "build-remote": "shadow-cljs clj-run build.main/build",
+    "release-cli": "shadow-cljs release cli",
     "build": "shadow-cljs clj-run build.main/build-local",
     "page": "shadow-cljs clj-run build.main/page",
     "upload": "lumo -c cli/:src/ -m build.upload",

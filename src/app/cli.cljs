@@ -30,6 +30,15 @@
        (go (>! chan-time (if (some? err) nil (string/trim stdout))))))
     chan-time))
 
+(defn wait-all! [channels]
+  (let [chan-batched (chan 1)]
+    (go
+     (loop [xs channels, acc []]
+       (if (empty? xs)
+         (>! chan-batched acc)
+         (let [cursor (first xs), pair (<! cursor)] (recur (rest xs) (conj acc pair))))))
+    chan-batched))
+
 (defn grab-files! []
   (go
    (let [start-time (.now js/Date)
@@ -55,15 +64,13 @@
                             [(string/replace x jimu-folder "")
                              {:content content, :time time}])))
                         chan-pair))
-                    xx))]
-     (loop [xs channels, acc []]
-       (if (empty? xs)
-         (let [data (into {} acc)]
-           (fs/writeFileSync
-            "resource/app/files.cljs"
-            (str "(ns app.files)\n\n(def files-map\n" (pr-str data) "\n)"))
-           (println "Finished in" (/ (- (.now js/Date) start-time) 1000) "seconds"))
-         (let [cursor (first xs), pair (<! cursor)] (recur (rest xs) (conj acc pair))))))))
+                    xx))
+         results (<! (wait-all! channels))]
+     (let [data (into {} results)]
+       (fs/writeFileSync
+        "resource/app/files.cljs"
+        (str "(ns app.files)\n\n(def files-map\n" (pr-str data) "\n)"))
+       (println "Finished in" (/ (- (.now js/Date) start-time) 1000) "seconds")))))
 
 (defn main! [] (println "started") (grab-files!))
 
