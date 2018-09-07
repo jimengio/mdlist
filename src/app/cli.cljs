@@ -15,7 +15,7 @@
      "utf8"
      (fn [err content]
        (when (some? err) (.error js/console "Error reading file:" err))
-       (go (>! chan-file (if (some? err) nil content)))))
+       (go (>! chan-file (if (some? err) (str "Error reading file: " x) content)))))
     chan-file))
 
 (def jimu-folder "/Users/chen/work/jimu/src/pkg.jimu.io")
@@ -26,7 +26,7 @@
      (str "cd " jimu-folder "&& git log -1 --format=\"%aI\" -- " x)
      (fn [err stdout stderr]
        (when (some? err) (.error js/console "Error get time:" err))
-       (go (>! chan-time (if (some? err) nil (string/trim stdout))))))
+       (go (>! chan-time (if (some? err) (str "Error get time: " x) (string/trim stdout))))))
     chan-time))
 
 (defn wait-all! [channels]
@@ -51,7 +51,6 @@
                            (not (string/includes? x "vendor"))
                            (not (string/includes? x "node_modules"))))
                     xx)
-                   (take 500 xx)
                    (map
                     (fn [x]
                       (let [chan-pair (chan 1)]
