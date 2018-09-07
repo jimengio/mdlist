@@ -6,8 +6,7 @@
             [clojure.string :as string]
             [cljs.reader :refer [read-string]]
             [clojure.string :as string]
-            [cljs.core.async :refer [put! chan <! >! timeout close!]])
-  (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
+            [cljs.core.async :refer [put! chan <! >! timeout close! go go-loop]]))
 
 (defn get-chan-file [x]
   (let [chan-file (chan)]
@@ -72,6 +71,6 @@
         (str "(ns app.files)\n\n(def files-map\n" (pr-str data) "\n)"))
        (println "Finished in" (/ (- (.now js/Date) start-time) 1000) "seconds")))))
 
-(defn main! [] (println "started") (grab-files!))
+(defn main! [] (println "Start grabbing files...") (grab-files!))
 
 (defn reload! [] (.write js/process.stdout (read-string "\"\\033c\"")) (grab-files!))
