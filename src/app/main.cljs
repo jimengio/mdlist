@@ -45,7 +45,7 @@
   (.addEventListener js/window "keydown" #(on-window-keydown %))
   (js/setInterval persist-storage! (* 1000 60))
   (let [raw (.getItem js/localStorage (:storage config/site))]
-    (when (some? raw) (dispatch! :hydrate-storage (assoc (read-string raw) :filter ""))))
+    (when (some? raw) (dispatch! :hydrate-storage (read-string raw))))
   (println "App started."))
 
 (defn reload! []
