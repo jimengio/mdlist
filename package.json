@@ -13,7 +13,7 @@
     "page": "shadow-cljs clj-run build.main/page",
     "upload": "lumo -c cli/:src/ -m build.upload",
     "ln": "cd target && rm -f entry && ln -s ../entry",
-    "redo": "node dist/cli.js && yarn build"
+    "redo": "node target/cli.js && yarn build"
   },
   "repository": {
     "type": "git",
