@@ -18,6 +18,20 @@
             ["fuzzy" :as fuzzy]))
 
 (defcomp
+ comp-empty
+ ()
+ (div
+  {:style (merge
+           ui/flex
+           ui/center
+           {:font-family ui/font-fancy,
+            :color (hsl 0 0 80),
+            :font-weight 300,
+            :font-size 24,
+            :user-select :none})}
+  (<> "No selection")))
+
+(defcomp
  comp-container
  (reel)
  (let [store (:store reel)
@@ -74,13 +88,15 @@
                  :on-click (fn [e d! m!] (d! :select idx))}
                 (<> (-> file-path (string/replace "/" " ") (string/replace ".md" ""))))])))))
     (if (nil? selected)
-      (div {:style (merge ui/flex ui/center)} (<> "No selection"))
+      (comp-empty)
       (let [file (get files-map (get (vec visible-files) selected))]
-        (div
-         {:style (merge ui/flex {:overflow :auto, :padding "32px 32px 200px 32px"})}
-         (div
-          {:style {:font-family ui/font-fancy, :font-size 16, :color (hsl 0 0 80)}}
-          (<> (str "Last modified at " (.format (dayjs (:time file)) "YYYY-MM-DD hh:mm"))))
-         (comp-md-block (:content file) {}))))
+        (if (some? file)
+          (div
+           {:style (merge ui/flex {:overflow :auto, :padding "32px 32px 200px 32px"})}
+           (div
+            {:style {:font-family ui/font-fancy, :font-size 16, :color (hsl 0 0 80)}}
+            (<> (str "Last modified at " (.format (dayjs (:time file)) "YYYY-MM-DD hh:mm"))))
+           (comp-md-block (:content file) {}))
+          (comp-empty))))
     (when dev? (comp-inspect "Co" store {:bottom 0}))
     (when dev? (cursor-> :reel comp-reel states reel {})))))
