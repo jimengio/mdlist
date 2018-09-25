@@ -611,6 +611,12 @@
                                    "r" {:type :leaf, :by "rJG4IHzWf", :at 1537844222300, :text "\"-", :id "ZFsdpU1zu"}
                                   }
                                  }
+                                 "x" {
+                                  :type :expr, :by "rJG4IHzWf", :at 1537856388814, :id "6DApQLVTwZ"
+                                  :data {
+                                   "T" {:type :leaf, :by "rJG4IHzWf", :at 1537856390890, :text "string/trim", :id "6DApQLVTwZleaf"}
+                                  }
+                                 }
                                 }
                                }
                                "r" {
@@ -1345,6 +1351,37 @@
                     :data {
                      "T" {:type :leaf, :by "rJG4IHzWf", :at 1537843634541, :text ":matches?", :id "Qs4a6DH53Z"}
                      "j" {:type :leaf, :by "rJG4IHzWf", :at 1537843634541, :text "result", :id "2VEH3kBTwV"}
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+               "x" {
+                :type :expr, :by "rJG4IHzWf", :at 1537857159672, :id "-Gl62bzIS"
+                :data {
+                 "T" {:type :leaf, :by "rJG4IHzWf", :at 1537857161252, :text "sort-by", :id "-Gl62bzISleaf"}
+                 "j" {
+                  :type :expr, :by "rJG4IHzWf", :at 1537857164572, :id "0PlQEyAla"
+                  :data {
+                   "T" {:type :leaf, :by "rJG4IHzWf", :at 1537857166017, :text "fn", :id "PhAQwZqrt"}
+                   "j" {
+                    :type :expr, :by "rJG4IHzWf", :at 1537857166685, :id "NpPUe-Z86"
+                    :data {
+                     "T" {:type :leaf, :by "rJG4IHzWf", :at 1537857168919, :text "result", :id "k24BHCmPim"}
+                    }
+                   }
+                   "r" {
+                    :type :expr, :by "rJG4IHzWf", :at 1537857169535, :id "B2o8oYsaI"
+                    :data {
+                     "T" {:type :leaf, :by "rJG4IHzWf", :at 1537857171183, :text "count", :id "B2o8oYsaIleaf"}
+                     "j" {
+                      :type :expr, :by "rJG4IHzWf", :at 1537857172419, :id "YHvNHp6oK2"
+                      :data {
+                       "T" {:type :leaf, :by "rJG4IHzWf", :at 1537857175322, :text ":chunks", :id "ZuaDYaaEh7"}
+                       "j" {:type :leaf, :by "rJG4IHzWf", :at 1537857177699, :text "result", :id "-z-qiuRs6"}
+                      }
+                     }
                     }
                    }
                   }

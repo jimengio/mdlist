@@ -41,7 +41,8 @@
        query (:filter store)
        visible-file-infos (->> (keys files-map)
                                (map (fn [file-path] (resolve-text file-path query)))
-                               (filter (fn [result] (:matches? result))))]
+                               (filter (fn [result] (:matches? result)))
+                               (sort-by (fn [result] (count (:chunks result)))))]
    (div
     {:style (merge ui/global ui/row ui/fullscreen)}
     (div
