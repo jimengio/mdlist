@@ -15,7 +15,8 @@
             [respo-md.comp.md :refer [comp-md-block]]
             [clojure.string :as string]
             ["dayjs" :as dayjs]
-            ["fuzzy" :as fuzzy]))
+            [fuzzy-filter.core :refer [resolve-text]]
+            [fuzzy-filter.comp.visual :refer [comp-visual]]))
 
 (defcomp
  comp-empty
@@ -38,16 +39,9 @@
        states (:states store)
        selected (:selected store)
        query (:filter store)
-       visible-files (->> (keys files-map)
-                          (filter
-                           (fn [file-path]
-                             (->> (string/split query " ")
-                                  (some
-                                   (fn [piece]
-                                     (or (string/blank? piece)
-                                         (and (not (string/blank? piece))
-                                              (fuzzy/test piece file-path))))))))
-                          (sort))]
+       visible-file-infos (->> (keys files-map)
+                               (map (fn [file-path] (resolve-text file-path query)))
+                               (filter (fn [result] (:matches? result))))]
    (div
     {:style (merge ui/global ui/row ui/fullscreen)}
     (div
@@ -68,28 +62,32 @@
         :on-keydown (fn [e d! m!]
           (case (:code e)
             "ArrowDown"
-              (do (d! :move-down (count visible-files)) (.preventDefault (:event e)))
-            "ArrowUp" (do (d! :move-up (count visible-files)) (.preventDefault (:event e)))
+              (do (d! :move-down (count visible-file-infos)) (.preventDefault (:event e)))
+            "ArrowUp"
+              (do (d! :move-up (count visible-file-infos)) (.preventDefault (:event e)))
             :else))}))
      (list->
       {:style (merge ui/flex {:overflow :auto, :padding-bottom 120, :padding-top 16})}
-      (->> visible-files
+      (->> visible-file-infos
            (map-indexed
-            (fn [idx file-path]
-              [file-path
-               (div
-                {:style (merge
-                         {:padding "0 16px",
-                          :line-height "32px",
-                          :cursor :pointer,
-                          :width "100%",
-                          :overflow :auto}
-                         (when (= idx selected) {:background-color (hsl 0 0 90)})),
-                 :on-click (fn [e d! m!] (d! :select idx))}
-                (<> (-> file-path (string/replace "/" " ") (string/replace ".md" ""))))])))))
+            (fn [idx file-info]
+              (let [file-path (:text file-info)]
+                [file-path
+                 (div
+                  {:style (merge
+                           {:padding "0 16px",
+                            :line-height "32px",
+                            :cursor :pointer,
+                            :width "100%",
+                            :overflow :auto}
+                           (when (= idx selected) {:background-color (hsl 0 0 90)})),
+                   :on-click (fn [e d! m!] (d! :select idx))}
+                  (comp-visual
+                   (:chunks file-info)
+                   {:style-rest {:color (hsl 0 0 70)}, :style-hitted {:color (hsl 0 0 0)}}))]))))))
     (if (nil? selected)
       (comp-empty)
-      (let [file (get files-map (get (vec visible-files) selected))]
+      (let [file (get files-map (:text (get (vec visible-file-infos) selected)))]
         (if (some? file)
           (div
            {:style (merge ui/flex {:overflow :auto, :padding "32px 32px 200px 32px"})}
