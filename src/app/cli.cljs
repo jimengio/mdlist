@@ -59,7 +59,12 @@
                                time (<! (get-chan-file-time jimu-folder x))]
                            (>!
                             chan-pair
-                            [(string/replace x jimu-folder "")
+                            [(-> x
+                                 (string/replace jimu-folder "")
+                                 (string/replace "/" " ")
+                                 (string/replace ".md" "")
+                                 (string/replace "_" "-")
+                                 (string/trim))
                              {:content content, :time time}])))
                         chan-pair))
                     xx))
