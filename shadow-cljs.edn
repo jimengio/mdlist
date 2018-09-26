@@ -9,7 +9,7 @@
                 [respo/ui               "0.3.7"]
                 [respo/value            "0.2.4"]
                 [respo/markdown         "0.2.1"]
-                [mvc-works/fuzzy-filter "0.0.3"]
+                [mvc-works/fuzzy-filter "0.0.4"]
                 [respo/reel             "0.3.2"]]
  :open-file-command ["subl" ["%s:%s:%s" :file :line :column]]
  :socket-repl {:port 0}
