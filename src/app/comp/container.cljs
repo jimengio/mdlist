@@ -15,7 +15,7 @@
             [respo-md.comp.md :refer [comp-md-block]]
             [clojure.string :as string]
             ["dayjs" :as dayjs]
-            [fuzzy-filter.core :refer [resolve-text]]
+            [fuzzy-filter.core :refer [parse-by-letter parse-by-word]]
             [fuzzy-filter.comp.visual :refer [comp-visual]]))
 
 (defcomp
@@ -40,7 +40,9 @@
        selected (:selected store)
        query (:filter store)
        visible-file-infos (->> (keys files-map)
-                               (map (fn [file-path] (resolve-text file-path query)))
+                               (map
+                                (fn [file-path]
+                                  (let [result (parse-by-word file-path query)] result)))
                                (filter (fn [result] (:matches? result)))
                                (sort-by (fn [result] (count (:chunks result)))))]
    (div
@@ -85,7 +87,8 @@
                    :on-click (fn [e d! m!] (d! :select idx))}
                   (comp-visual
                    (:chunks file-info)
-                   {:style-rest {:color (hsl 0 0 70)}, :style-hitted {:color (hsl 0 0 0)}}))]))))))
+                   {:style-rest {:color (hsl 0 0 70)},
+                    :style-hitted {:color (hsl 0 0 0), :font-weight :normal}}))]))))))
     (if (nil? selected)
       (comp-empty)
       (let [file (get files-map (:text (get (vec visible-file-infos) selected)))]
