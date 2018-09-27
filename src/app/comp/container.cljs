@@ -55,10 +55,10 @@
                :width 320,
                :white-space :nowrap})}
      (div
-      {:style {:padding 16, :border-bottom (str "1px solid " (hsl 0 0 90))}}
+      {:style {:padding 8, :border-bottom (str "1px solid " (hsl 0 0 90))}}
       (input
        {:class-name "search-box",
-        :style (merge ui/input {:width "100%", :font-family ui/font-code}),
+        :style (merge ui/input {:width "100%", :font-family ui/font-code, :border :none}),
         :placeholder "Filter...",
         :value query,
         :on-input (fn [e d! m!] (d! :filter (:value e)) (d! :select 0)),

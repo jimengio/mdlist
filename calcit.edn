@@ -1530,7 +1530,7 @@
                       :type :expr, :by "root", :at 1534419117215, :id "VxomB56HI8"
                       :data {
                        "T" {:type :leaf, :by "root", :at 1534419118238, :text ":padding", :id "jQEl0NYzG9"}
-                       "j" {:type :leaf, :by "root", :at 1534735202762, :text "16", :id "wj5lTinyjd"}
+                       "j" {:type :leaf, :by "rJG4IHzWf", :at 1538049718149, :text "8", :id "wj5lTinyjd"}
                       }
                      }
                      "r" {
@@ -1601,6 +1601,13 @@
                           :data {
                            "T" {:type :leaf, :by "root", :at 1534733253642, :text ":font-family", :id "DQ0kstFgnXleaf"}
                            "j" {:type :leaf, :by "root", :at 1534733255284, :text "ui/font-code", :id "xH2g4BgiWX"}
+                          }
+                         }
+                         "v" {
+                          :type :expr, :by "rJG4IHzWf", :at 1538049710905, :id "aPiYyAGYIS"
+                          :data {
+                           "T" {:type :leaf, :by "rJG4IHzWf", :at 1538049712946, :text ":border", :id "aPiYyAGYISleaf"}
+                           "j" {:type :leaf, :by "rJG4IHzWf", :at 1538049714280, :text ":none", :id "Cu8_hCsi7E"}
                           }
                          }
                         }
