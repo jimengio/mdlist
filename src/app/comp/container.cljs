@@ -59,7 +59,7 @@
       (input
        {:class-name "search-box",
         :style (merge ui/input {:width "100%", :font-family ui/font-code, :border :none}),
-        :placeholder "Filter...",
+        :placeholder "...",
         :value query,
         :on-input (fn [e d! m!] (d! :filter (:value e)) (d! :select 0)),
         :on-keydown (fn [e d! m!]
