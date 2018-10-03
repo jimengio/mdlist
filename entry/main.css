@@ -30,6 +30,18 @@ body * {
   background-color:transparent;
 }
 
+::-webkit-input-placeholder {
+  color: #ddd;
+}
+::-moz-placeholder {
+  color: #ddd;
+}
+:-ms-input-placeholder {
+  color: #ddd;
+}
+:-moz-placeholder {
+  color: #ddd;
+}
 
 .md-p {margin: 16px 0;line-height: 24px;font-size: 14px;}
 
