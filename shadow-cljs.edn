@@ -1,26 +1,26 @@
 
 {:source-paths ["resource" "src" "cli"]
+ :dependencies [[mvc-works/hsl          "0.1.2"]
+                [mvc-works/shell-page   "0.1.10"]
+                [respo                  "0.10.2"]
+                [respo/ui               "0.3.10"]
+                [respo/value            "0.2.5"]
+                [respo/markdown         "0.2.4"]
+                [mvc-works/fuzzy-filter "0.0.6"]
+                [respo/reel             "0.3.4"]
+                [cumulo/util            "0.1.4"]
+                [org.clojure/core.incubator "0.1.4"]]
  :repositories {"central" {:url "https://maven.aliyun.com/nexus/content/groups/public/"}
                 "clojars" {:url "https://mirrors.ustc.edu.cn/clojars/"}}
- :dependencies [[mvc-works/hsl          "0.1.2"]
-                [mvc-works/verbosely    "0.1.2"]
-                [mvc-works/shell-page   "0.1.8"]
-                [respo                  "0.8.20"]
-                [respo/ui               "0.3.7"]
-                [respo/value            "0.2.4"]
-                [respo/markdown         "0.2.1"]
-                [mvc-works/fuzzy-filter "0.0.4"]
-                [respo/reel             "0.3.2"]]
  :open-file-command ["subl" ["%s:%s:%s" :file :line :column]]
  :socket-repl {:port 0}
  :builds {:client {:target :browser
                    :output-dir "target/"
                    :asset-path "./"
-                   :modules {:client {:entries [app.main]}}
+                   :modules {:client {:init-fn app.main/main!}}
                    :devtools {:after-load app.main/reload!
                               :http-root "target"
-                              :http-port 7000
-                              :loader-mode :eval}
+                              :http-port 7000}
                    :compiler-options {:infer-externs :auto}
                    :release {:output-dir "dist/"
                              :module-hash-names 8
@@ -29,6 +29,10 @@
                  :output-to "target/page.js"
                  :main app.page/main!
                  :devtools {:after-load app.page/main!}}
+          :upload {:target :node-script
+                   :output-to "target/upload.js"
+                   :main app.upload/main!
+                   :devtools {:after-load app.upload/main!}}
           :cli {:target :node-script
                 :output-to "target/cli.js"
                 :main app.cli/main!

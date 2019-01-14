@@ -8,7 +8,8 @@
             [reel.core :refer [reel-updater refresh-reel]]
             [reel.schema :as reel-schema]
             [cljs.reader :refer [read-string]]
-            [app.config :as config]))
+            [app.config :as config]
+            [cumulo-util.core :refer [repeat!]]))
 
 (defonce *reel
   (atom (-> reel-schema/reel (assoc :base schema/store) (assoc :store schema/store))))
@@ -29,7 +30,7 @@
     :else))
 
 (defn persist-storage! []
-  (.setItem js/localStorage (:storage config/site) (pr-str (:store @*reel))))
+  (.setItem js/localStorage (:storage-key config/site) (pr-str (:store @*reel))))
 
 (defn render-app! [renderer]
   (renderer mount-target (comp-container @*reel) #(dispatch! %1 %2)))
@@ -37,14 +38,15 @@
 (def ssr? (some? (js/document.querySelector "meta.respo-ssr")))
 
 (defn main! []
+  (println "Running mode:" (if config/dev? "dev" "release"))
   (if ssr? (render-app! realize-ssr!))
   (render-app! render!)
   (add-watch *reel :changes (fn [] (render-app! render!)))
   (listen-devtools! "a" dispatch!)
   (.addEventListener js/window "beforeunload" persist-storage!)
   (.addEventListener js/window "keydown" #(on-window-keydown %))
-  (js/setInterval persist-storage! (* 1000 60))
-  (let [raw (.getItem js/localStorage (:storage config/site))]
+  (repeat! 60 persist-storage!)
+  (let [raw (.getItem js/localStorage (:storage-key config/site))]
     (when (some? raw) (dispatch! :hydrate-storage (read-string raw))))
   (println "App started."))
 
@@ -52,5 +54,3 @@
   (clear-cache!)
   (reset! *reel (refresh-reel @*reel schema/store updater))
   (println "Code updated."))
-
-(set! (.-onload js/window) main!)

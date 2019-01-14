@@ -180,9 +180,10 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
 
-dayjs@^1.7.5:
-  version "1.7.5"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.7.5.tgz#14715cb565d1f8cb556a8531cb14bf1fc33067cc"
+dayjs@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.0.tgz#507963ac3023f4b1f9f399a278356946fc4c9ae9"
+  integrity sha512-2ofInmfMKLLR5R02q3WEUuDt86UK33VQQTaEeJudF+C04ZUaekCP3VpB0NJPiyPDCGJWq9XYhHX2AemdxA8+dg==
 
 debug@^2.2.0:
   version "2.6.9"
@@ -325,6 +326,11 @@ isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
 
+isexe@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
+  integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
+
 md5.js@^1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/md5.js/-/md5.js-1.3.4.tgz#e9bdbde94a20a5ac18b04340fc5764d5b09d901d"
@@ -373,9 +379,10 @@ ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
-nanoid@^1.0.7:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-1.1.0.tgz#b18e806e1cdbfdbe030374d5cf08a48cbc80b474"
+nanoid@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.0.0.tgz#e1ab4a4b024a38d15531ba34a712a201540de639"
+  integrity sha512-SG2qscLE3iM4C0CNzGrsAojJHSVHMS1J8NnvJ31P1lH8P0hGHOiafmniNJz6w6q7vuoDlV7RdySlJgtqkFEVtQ==
 
 node-libs-browser@^2.0.0:
   version "2.0.0"
@@ -553,27 +560,25 @@ shadow-cljs-jar@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/shadow-cljs-jar/-/shadow-cljs-jar-1.3.0.tgz#e25c4fa57c0b405096250884b164c112654a06a3"
 
-shadow-cljs@^2.6.10:
-  version "2.6.10"
-  resolved "https://registry.yarnpkg.com/shadow-cljs/-/shadow-cljs-2.6.10.tgz#5a7a9eee385d79a0c88c6ca52e72de2f4575bcfe"
+shadow-cljs@^2.7.15:
+  version "2.7.15"
+  resolved "https://registry.yarnpkg.com/shadow-cljs/-/shadow-cljs-2.7.15.tgz#b6ef3019da6df051e7285bd28e0e265054a760b3"
+  integrity sha512-qxjEWOJZ2hhDtR/KmLk6Iuw1yN41xS0851wdiFyNvxMdY35+X7ARQ3SR7ofgd4wen9CZWxdQpmBTAjViXx6mbg==
   dependencies:
     mkdirp "^0.5.1"
     node-libs-browser "^2.0.0"
     readline-sync "^1.4.7"
     shadow-cljs-jar "1.3.0"
-    signal-exit "^3.0.2"
     source-map-support "^0.4.15"
+    which "^1.3.1"
     ws "^3.0.0"
 
-shortid@^2.2.13:
-  version "2.2.13"
-  resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.13.tgz#b2441e71c664ace458a341d343959f677910ef5b"
+shortid@^2.2.14:
+  version "2.2.14"
+  resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.14.tgz#80db6aafcbc3e3a46850b3c88d39e051b84c8d18"
+  integrity sha512-4UnZgr9gDdA1kaKj/38IiudfC3KHKhDc1zi/HSxd9FQDR0VLwH3/y79tZJLsVYPsJgIjeHjqIWaWVRJUj9qZOQ==
   dependencies:
-    nanoid "^1.0.7"
-
-signal-exit@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+    nanoid "^2.0.0"
 
 source-map-support@^0.4.15:
   version "0.4.18"
@@ -662,6 +667,13 @@ vm-browserify@0.0.4:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
   dependencies:
     indexof "0.0.1"
+
+which@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/which/-/which-1.3.1.tgz#a45043d54f5805316da8d62f9f50918d3da70b0a"
+  integrity sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==
+  dependencies:
+    isexe "^2.0.0"
 
 wordwrap@~0.0.2:
   version "0.0.3"
