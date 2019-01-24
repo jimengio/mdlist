@@ -97,7 +97,7 @@
            (div
             {:style {:font-family ui/font-fancy, :font-size 16, :color (hsl 0 0 80)}}
             (<> (str "Last modified at " (.format (dayjs (:time file)) "YYYY-MM-DD hh:mm"))))
-           (comp-md-block (:content file) {}))
+           (comp-md-block (:content file) {:style {:white-space :pre-wrap}}))
           (comp-empty))))
     (when dev? (comp-inspect "Co" store {:bottom 0}))
     (when dev? (cursor-> :reel comp-reel states reel {})))))
