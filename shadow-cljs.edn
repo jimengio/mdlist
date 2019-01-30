@@ -6,6 +6,7 @@
                 [respo/ui               "0.3.10"]
                 [respo/value            "0.2.5"]
                 [respo/markdown         "0.2.4"]
+                [respo/feather          "0.1.1"]
                 [mvc-works/fuzzy-filter "0.0.6"]
                 [respo/reel             "0.3.4"]
                 [cumulo/util            "0.1.4"]

@@ -4,7 +4,18 @@
             [respo-ui.core :as ui]
             [respo.core
              :refer
-             [defcomp cursor-> action-> mutation-> list-> <> div button textarea span input]]
+             [defcomp
+              cursor->
+              action->
+              mutation->
+              list->
+              <>
+              div
+              button
+              textarea
+              span
+              input
+              a]]
             [respo.comp.space :refer [=<]]
             [reel.comp.reel :refer [comp-reel]]
             [respo.comp.inspect :refer [comp-inspect]]
@@ -14,8 +25,10 @@
             [respo-md.comp.md :refer [comp-md-block]]
             [clojure.string :as string]
             ["dayjs" :as dayjs]
+            ["copy-text-to-clipboard" :as copy!]
             [fuzzy-filter.core :refer [parse-by-letter parse-by-word]]
-            [fuzzy-filter.comp.visual :refer [comp-visual]]))
+            [fuzzy-filter.comp.visual :refer [comp-visual]]
+            [feather.core :refer [comp-i]]))
 
 (defcomp
  comp-empty
@@ -96,7 +109,16 @@
            {:style (merge ui/flex {:overflow :auto, :padding "32px 32px 200px 32px"})}
            (div
             {:style {:font-family ui/font-fancy, :font-size 16, :color (hsl 0 0 80)}}
-            (<> (str "Last modified at " (.format (dayjs (:time file)) "YYYY-MM-DD hh:mm"))))
+            (<> (str "Last modified at " (.format (dayjs (:time file)) "YYYY-MM-DD hh:mm")))
+            (=< 8 nil)
+            (a
+             {:style {:cursor :pointer},
+              :on-click (fn [e d! m!]
+                (set!
+                 js/location.hash
+                 (string/replace (:text (get (vec visible-file-infos) selected)) " " "_"))
+                (copy! js/location.href))}
+             (comp-i :link 14 (hsl 200 80 30))))
            (comp-md-block (:content file) {:style {:white-space :pre-wrap}}))
           (comp-empty))))
     (when dev? (comp-inspect "Co" store {:bottom 0}))

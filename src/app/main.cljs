@@ -9,7 +9,9 @@
             [reel.schema :as reel-schema]
             [cljs.reader :refer [read-string]]
             [app.config :as config]
-            [cumulo-util.core :refer [repeat!]]))
+            [cumulo-util.core :refer [repeat!]]
+            [clojure.string :as string]
+            [app.files :refer [files-map]]))
 
 (defonce *reel
   (atom (-> reel-schema/reel (assoc :base schema/store) (assoc :store schema/store))))
@@ -46,8 +48,14 @@
   (.addEventListener js/window "beforeunload" persist-storage!)
   (.addEventListener js/window "keydown" #(on-window-keydown %))
   (repeat! 60 persist-storage!)
-  (let [raw (.getItem js/localStorage (:storage-key config/site))]
-    (when (some? raw) (dispatch! :hydrate-storage (read-string raw))))
+  (let [initial-page (string/replace
+                      (js/decodeURIComponent (subs js/location.hash 1))
+                      "_"
+                      " ")]
+    (if (some? (get files-map initial-page))
+      (do (dispatch! :filter initial-page) (dispatch! :select 0))
+      (let [raw (.getItem js/localStorage (:storage-key config/site))]
+        (when (some? raw) (dispatch! :hydrate-storage (read-string raw))))))
   (println "App started."))
 
 (defn reload! []
