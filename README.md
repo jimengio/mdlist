@@ -6,12 +6,16 @@ Docs
 
 ### Usage
 
+```bash
+git clone $YOUR_REPO api-folder
+```
+
 Launch in development mode:
 
 ```bash
 yarn
 yarn watch
-node target/cli.js
+node target/cli.js # need to exit
 yarn page
 open http://localhost:7000
 ```
@@ -20,10 +24,17 @@ Bundle assets:
 
 ```bash
 yarn
-yarn shadow-cljs compile cli
-node target/cli.js
+yarn shadow-cljs release cli
+node dist/cli.js
 yarn build
 yarn http-server dist/
+```
+
+To update:
+
+```bash
+yarn up # pull API commits and rebuild site
+yarn up-all # clear dist, build CLI, and do `yarn up`
 ```
 
 ### Workflow

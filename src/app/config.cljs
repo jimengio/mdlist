@@ -20,7 +20,7 @@
   {:dev-ui "http://localhost:8100/main.css",
    :release-ui "http://cdn.tiye.me/favored-fonts/main.css",
    :cdn-url "http://cdn.tiye.me/mdlist/",
-   :cdn-folder "tiye.me:cdn/mdlist",
+   :cdn-folder "fe.jimu.io:cdn/mdlist",
    :title "Docs",
    :icon "http://cdn.tiye.me/logo/jimeng-360x360.png",
    :storage-key "mdlist",

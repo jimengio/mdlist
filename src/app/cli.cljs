@@ -18,7 +18,7 @@
        (go (>! chan-file (if (some? err) (str "Error reading file: " x) content)))))
     chan-file))
 
-(def jimu-folder "/Users/chen/work/jimu/src/pkg.jimu.io")
+(def jimu-folder "./api-folder")
 
 (defn get-chan-file-time [jimu-folder x]
   (let [chan-time (chan)]

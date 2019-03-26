@@ -8,7 +8,6 @@
   (println (:out (sh "bash" "-c" command))))
 
 (defn build-cdn []
-  (sh! "rm -rf dist/*")
   (shadow/release :client)
   (shadow/compile :page)
   (shadow/compile :upload)
@@ -16,7 +15,6 @@
   (sh! "cp entry/manifest.json dist/"))
 
 (defn build []
-  (sh! "rm -rf dist/*")
   (shadow/release :client)
   (shadow/compile :page)
   (sh! "release=true node target/page.js")
