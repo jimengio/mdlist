@@ -14,7 +14,7 @@
     "page": "shadow-cljs clj-run build.main/page",
     "ln": "cd target && rm -f entry && ln -s ../entry",
     "up": "cd api-folder/ && git pull && cd - && node dist/cli.js && yarn build",
-    "up-all": "rm -rf dist/* && yarn build-cli && yarn update"
+    "up-all": "rm -rf dist/* && yarn build-cli && yarn up"
   },
   "repository": {
     "type": "git",
