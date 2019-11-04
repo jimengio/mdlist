@@ -64,7 +64,7 @@
               ui/column
               {:overflow :auto,
                :border-right (str "1px solid " (hsl 0 0 94)),
-               :width 320,
+               :width 400,
                :white-space :nowrap})}
      (div
       {:style {:padding 8, :border-bottom (str "1px solid " (hsl 0 0 90))}}

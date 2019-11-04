@@ -23,7 +23,7 @@
 (defn get-chan-file-time [jimu-folder x]
   (let [chan-time (chan)]
     (cp/exec
-     (str "cd " jimu-folder "&& git log -1 --format=\"%aI\" -- " x)
+     (str "cd " jimu-folder " && git log -1 --format=\"%aI\" -- " x)
      (fn [err stdout stderr]
        (when (some? err) (.error js/console "Error get time:" err))
        (go (>! chan-time (if (some? err) (str "Error get time: " x) (string/trim stdout))))))
@@ -56,7 +56,10 @@
                       (let [chan-pair (chan 1)]
                         (go
                          (let [content (<! (get-chan-file x))
-                               time (<! (get-chan-file-time jimu-folder x))]
+                               time (<!
+                                     (get-chan-file-time
+                                      jimu-folder
+                                      (-> x (string/replace jimu-folder "."))))]
                            (>!
                             chan-pair
                             [(-> x
