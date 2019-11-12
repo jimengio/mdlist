@@ -64,6 +64,7 @@
                             chan-pair
                             [(-> x
                                  (string/replace jimu-folder "")
+                                 (string/replace "src/pkg.jimu.io" "")
                                  (string/replace "/" " ")
                                  (string/replace ".md" "")
                                  (string/replace "_" "-")

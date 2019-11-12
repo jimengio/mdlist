@@ -43,24 +43,25 @@ body * {
   color: #ddd;
 }
 
-.md-p {margin: 16px 0;line-height: 24px;font-size: 14px;}
-
-.md-p code {
-    background-color: white;
-    padding: 0 8px;
-    font-family: "Source Code Pro", "Menlo", monospace;
-    border: 1px solid #eee;
-    border-radius: 4px;
-    display: inline-block;
-    font-size: 13px;
-    margin: 4px;
+.markdown-block {
+  margin: 16px 0;
+  line-height: 24px;
+  font-size: 14px;
 }
 
-.md-code-block {
+.markdown-block p code {
+  background-color: white;
+  padding: 0 8px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 13px;
+  margin: 4px;
+}
+
+.markdown-block pre {
   background-color: #ffffff;
   padding: 16px;
-  font-family:
-  "Source Code Pro", "Menlo", monospace;
   line-height: 21px;
   font-size: 13px;
   overflow: auto;
@@ -68,11 +69,11 @@ body * {
   border-radius: 4px;
 }
 
-.md-code-block code {
+.markdown-block code {
  font-family: "Source Code Pro", "Menlo", monospace;
 }
 
-.md-block img {
-max-width: 100%;
-max-height: 80vh;
+.markdown-block img {
+  max-width: 100%;
+  max-height: 80vh;
 }

@@ -7,7 +7,8 @@
             [reel.schema :as reel-schema]
             [cljs.reader :refer [read-string]]
             [app.config :as config]
-            [cumulo-util.build :refer [get-ip!]])
+            [cumulo-util.build :refer [get-ip!]]
+            ["dayjs" :as dayjs])
   (:require-macros [clojure.core.strint :refer [<<]]))
 
 (def base-info
@@ -20,7 +21,7 @@
     base-info
     {:styles [(<< "http://~(get-ip!):8100/main.css") "/entry/main.css"],
      :scripts ["/client.js"],
-     :inline-styles []})))
+     :inline-styles [(slurp "node_modules/highlight.js/styles/github.css")]})))
 
 (defn prod-page []
   (let [reel (-> reel-schema/reel (assoc :base schema/store) (assoc :store schema/store))
@@ -35,8 +36,12 @@
       {:styles [(:release-ui config/site)],
        :scripts (map #(-> % :output-name prefix-cdn) assets),
        :ssr "respo-ssr",
-       :inline-styles [(slurp "./entry/main.css")],
-       :append-html (slurp "./entry/ga.html")}))))
+       :inline-styles [(slurp "node_modules/highlight.js/styles/github.css")
+                       (slurp "./entry/main.css")],
+       :append-html (str
+                     (slurp "./entry/ga.html")
+                     (let [generated-time (pr-str (.format (dayjs) "YYYY-MM-DD hh:mm"))]
+                       (<< "<script>\nwindow.generatedTime = ~{generated-time};\n</script>")))}))))
 
 (defn main! []
   (println "Running mode:" (if config/dev? "dev" "release"))
