@@ -22,13 +22,15 @@
             [respo-md.comp.md :refer [comp-md]]
             [app.config :refer [dev?]]
             [app.files :refer [files-map]]
-            [respo-md.comp.md :refer [comp-md-block]]
             [clojure.string :as string]
             ["dayjs" :as dayjs]
             ["copy-text-to-clipboard" :as copy!]
             [fuzzy-filter.core :refer [parse-by-letter parse-by-word]]
             [fuzzy-filter.comp.visual :refer [comp-visual]]
-            [feather.core :refer [comp-i]]))
+            [feather.core :refer [comp-i]]
+            ["remarkable" :refer [Remarkable]]
+            ["highlight.js" :as hljs]
+            ["remarkable/linkify" :refer [linkify]]))
 
 (defcomp
  comp-empty
@@ -44,6 +46,14 @@
             :user-select :none})}
   (<> "No selection")))
 
+(def md
+  (new
+   Remarkable
+   (clj->js
+    {:linkTarget "_blank",
+     :breaks true,
+     :highlight (fn [code lang] (.-value (.highlightAuto hljs (string/trim code))))})))
+
 (defcomp
  comp-container
  (reel)
@@ -54,7 +64,7 @@
        visible-file-infos (->> (keys files-map)
                                (map
                                 (fn [file-path]
-                                  (let [result (parse-by-word file-path query)] result)))
+                                  (let [result (-> file-path (parse-by-word query))] result)))
                                (filter (fn [result] (:matches? result)))
                                (sort-by (fn [result] (count (:chunks result)))))]
    (div
@@ -109,7 +119,13 @@
            {:style (merge ui/flex {:overflow :auto, :padding "32px 32px 200px 32px"})}
            (div
             {:style {:font-family ui/font-fancy, :font-size 16, :color (hsl 0 0 80)}}
-            (<> (str "Last modified at " (.format (dayjs (:time file)) "YYYY-MM-DD hh:mm")))
+            (<>
+             (str
+              "Last modified at "
+              (.format (dayjs (:time file)) "YYYY-MM-DD hh:mm")
+              " ."))
+            (=< 8 nil)
+            (<> (str "Generated at: " (or js/window.generatedTime "--")))
             (=< 8 nil)
             (a
              {:style {:cursor :pointer},
@@ -119,7 +135,7 @@
                  (string/replace (:text (get (vec visible-file-infos) selected)) " " "_"))
                 (copy! js/location.href))}
              (comp-i :link 14 (hsl 200 80 30))))
-           (comp-md-block (:content file) {:style {:white-space :pre-wrap}}))
+           (div {:class-name "markdown-block", :innerHTML (.render md (:content file))}))
           (comp-empty))))
     (when dev? (comp-inspect "Co" store {:bottom 0}))
     (when dev? (cursor-> :reel comp-reel states reel {})))))
