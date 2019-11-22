@@ -29,7 +29,6 @@
             [fuzzy-filter.comp.visual :refer [comp-visual]]
             [feather.core :refer [comp-i]]
             ["remarkable" :refer [Remarkable]]
-            ["highlight.js" :as hljs]
             ["remarkable/linkify" :refer [linkify]]))
 
 (defcomp
@@ -51,8 +50,11 @@
    Remarkable
    (clj->js
     {:linkTarget "_blank",
+     :html true,
      :breaks true,
-     :highlight (fn [code lang] (.-value (.highlightAuto hljs (string/trim code))))})))
+     :highlight (fn [code lang]
+       (comment .-value (.highlightAuto hljs (string/trim code)))
+       code)})))
 
 (defcomp
  comp-container
