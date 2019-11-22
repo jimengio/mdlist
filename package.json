@@ -24,7 +24,7 @@
     "copy-text-to-clipboard": "^2.1.1",
     "feather-icons": "^4.24.1",
     "http-server": "^0.11.1",
-    "shadow-cljs": "^2.8.69"
+    "shadow-cljs": "^2.8.74"
   },
   "dependencies": {
     "dayjs": "^1.8.17",
