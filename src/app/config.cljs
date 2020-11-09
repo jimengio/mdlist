@@ -16,8 +16,8 @@
 
 (def site
   {:dev-ui "http://localhost:8100/main.css",
-   :release-ui "https://cdn.tiye.me/favored-fonts/main.css",
+   :release-ui "https://fe.jimu.io/favored-fonts/main.css",
    :cdn-url "https://fr.jimu.io/cdn/mdlist/",
    :title "Docs",
-   :icon "https://cdn.tiye.me/logo/jimeng-360x360.png",
+   :icon "https://fe.jimu.io/logo/jimeng-360x360.png",
    :storage-key "mdlist"})
